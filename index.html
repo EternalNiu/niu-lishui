@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+        <title>智汇丽水</title>
+        <meta name="author" content="牛奇超" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0,minimum-scale=1.0, maximum-scale=1.0,user-scalable=no">
+        <link rel="stylesheet" href="css/base.css">
+        <link rel="stylesheet" href="./css/index.css">
+        <style>
+            .all {
+                width: 100vw;
+                height: 100vh;
+            }
+            .ending_box{
+                position: relative;
+                width: 100vw;
+                height: 100vh;
+            }
+            .ending_con{
+                width: 100%;
+                height: 100%;
+            }
+            .ending_con .ending_img{
+                margin: 0 auto;
+                height: 100%;
+            }
+            .ending_con .ending_img img{
+                width: 100%;
+                height: 100%;
+            }
+        
+            </style>
+        
+	</head>
+	<body class='all'>
+        <div class="ending_box" q-ctrl="endingCtrl">
+            <div class="ending_con">
+                   <p class="ending_img">
+                          <img src="./images/one.jpg"/>
+                   </p>
+                   <div class="insert">
+                    <input class='input' placeholder="请输入姓名">
+                    <button class="arrow">确定</button>
+                </div>
+                <div class='modal'>
+                    <div class="header">
+                        <p class='title'>请选择</p>
+                        <p class='cancel'>×</p>
+                    </div>
+                    <div class="list">
+                    </div>
+                </div>
+            </div>
+       </div>
+	</body>
+</html>
+<script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.5.1.min.js"></script>
+<script type="text/javascript" src="./list.js"></script>
+<script type="text/javascript" src="./js/toast.js"></script>
+<script>
+    (function(doc,win){
+      var docEl = doc.documentElement,
+              resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+              recalc = function() {
+                  var clientWidth = docEl.clientWidth;
+                  if(!clientWidth) return;
+                  if (clientWidth >= 750) {
+                      docEl.style.fontSize = '100px';
+                  } else{
+                      docEl.style.fontSize = 100 *(clientWidth / 750) + 'px';
+                  }
+              };
+      if(!doc.addEventListener) return;
+      win.addEventListener(resizeEvt, recalc, false);
+      doc.addEventListener('DOMContentLoaded',recalc,false);
+  })(document,window)
+</script>
+<script>
+    $(document).ready(function(){
+        $('.arrow').click(function(){
+            var value = $('.input').val()
+            if (!value) {
+                Toast('请先输入内容', 1000)
+            } else {
+                var list = []
+                data.forEach(function(item){
+                    if ((item.person === value) || (item.name.indexOf(value) != -1)) {
+                        list.push(item)
+                    }
+                })
+                if(list.length === 0) {
+                    Toast('未查询到结果', 1000)
+                } else if (list.length === 1) {
+                    delComment(list[0].name, list[0].seat)
+                } else {
+                    var tableContent = " ";
+                    $.each(list,function(i){
+                        var ele = list[i];
+                        var useName = ele.name.split('(')[0]
+                        tableContent += '<p style="border-bottom: 1px solid #eee; word-wrap:break-word;word-break:break-all; line-height: .8rem; color: #1E90ff">';
+                        tableContent += '<a style="font-size: 14px; width: 100%; display: inline-block" href="detail.html?name='+useName+'&seat='+ele.seat+'")>'+ele.name+'</a>'
+                        tableContent += '</p>'; 
+                    })
+                    $('.modal').css('display','block');
+                    $(".list").html(tableContent);
+                    
+                }
+            }
+        })
+        $('.cancel').click(function(){
+            $('.modal').css('display','none');
+        })
+    });
+    function delComment(name, seat) {
+        var a = document.createElement('a');
+        var url = 'detail.html?name=' +name + '&seat=' + seat
+        a.setAttribute('href', url);
+        document.body.appendChild(a);
+        a.click();
+    }
+</script>

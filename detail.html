@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+        <title>智汇丽水</title>
+        <meta name="author" content="牛奇超" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0,minimum-scale=1.0, maximum-scale=1.0,user-scalable=no">
+        <link rel="stylesheet" href="css/base.css">
+        <link rel="stylesheet" href="./css/detail.css">
+	</head>
+	<body>
+      <div class="container">
+        <div class='name'>尊敬的嘉宾：<span class='show'></span></div>
+        <div class='seat'>
+          <p class='seatTitle'>您的座位是:</p>
+          <p class='seatname'></p>
+        </div>
+      </div>
+	</body>
+</html>
+<script>
+	(function(doc,win){
+      var docEl = doc.documentElement,
+              resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+              recalc = function() {
+                  var clientWidth = docEl.clientWidth;
+                  if(!clientWidth) return;
+                  if (clientWidth >= 750) {
+                      docEl.style.fontSize = '100px';
+                  } else{
+                      docEl.style.fontSize = 100 *(clientWidth / 750) + 'px';
+                  }
+              };
+      if(!doc.addEventListener) return;
+      win.addEventListener(resizeEvt, recalc, false);
+      doc.addEventListener('DOMContentLoaded',recalc,false);
+  })(document,window)
+</script>
+<script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.5.1.min.js"></script>
+<script type="text/javascript" src="./js/params.js"></script>
+<script>
+    $(document).ready(function(){
+      $('body').height($('body')[0].clientHeight);
+      var name = $.query.get('name')
+      var seat = $.query.get('seat')
+      $('.show').text(name)
+      $('.seatname').text(seat)
+    });
+</script>
