@@ -1,16 +1,15 @@
 .insert {
   position: absolute;
   top: 45%;
-  width: 5.4rem;
-  margin-left: 1.2rem;
+  margin-left: 1rem;
   height: 1rem;
   text-align: center;
 }
 .input {
   width: 4rem;
-  height: 0.5rem;
+  height: 0.7rem;
   background-color: transparent;
-  font-size: 14px;
+  font-size: 16px;
   padding: 0 10px;
   color: white;
   border: 1px solid #388bff;
@@ -19,7 +18,7 @@
 .arrow {
   color: white;
   background: transparent;
-  font-size: 14px;
+  font-size: 16px;
   margin-left: .1rem;
 }
 input::-webkit-input-placeholder{
